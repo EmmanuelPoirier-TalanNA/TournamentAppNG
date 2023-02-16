@@ -1,6 +1,11 @@
+mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+}
 
-.example-spacer {
-  flex: 1 1 auto;
+.header-main-menu {
+  display: flex;
+  align-items: center;
 }
 
 .header-connexion {
@@ -8,7 +13,8 @@
   align-items: center;
 }
 
-
-
-
-
+.header-nav-bar {
+  display: flex;
+  gap: 12px;
+  margin-left: 12px;
+}

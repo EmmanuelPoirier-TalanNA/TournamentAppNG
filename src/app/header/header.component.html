@@ -1,14 +1,19 @@
-<div class="header">
+
   <mat-toolbar color="primary">
-    <button
-      mat-icon-button
-      class="example-icon"
-      aria-label="Example icon-button with menu icon"
-    >
-      <mat-icon>menu</mat-icon>
-    </button>
-    <span>Tournament App</span>
-    <span class="example-spacer"></span>
+    <div class="header-main-menu">
+      <button
+        mat-icon-button
+        class="example-icon"
+        aria-label="Example icon-button with menu icon"
+      >
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>Tournament App</span>
+    </div>
+    <div class="header-nav-bar">
+      <a mat-raised-button routerLink="/">Home</a>
+      <a mat-raised-button routerLink="tournament">Les tournois</a>
+    </div>
 
     <div class="header-connexion">
       <button class="btn" mat-icon-button aria-label="Connexion utilisateur">
@@ -21,4 +26,4 @@
       <span class="btn-label btn-label--small">&nbsp;S'enregistrer</span>
     </div>
   </mat-toolbar>
-</div>
+
