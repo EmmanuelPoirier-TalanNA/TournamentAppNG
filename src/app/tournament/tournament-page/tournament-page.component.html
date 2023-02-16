@@ -1,5 +1,5 @@
 <div class="title">
   <h1>Les tournois</h1>
 </div>
-<app-tournament-card></app-tournament-card>
+<app-tournament-card *ngFor="let tournament of tournaments" [tournament]="tournament"></app-tournament-card>
 

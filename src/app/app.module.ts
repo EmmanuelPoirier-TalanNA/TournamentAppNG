@@ -9,6 +9,7 @@ import { SharedModule } from './_shared/shared.module';
 import { HomeComponent } from './home/home.component';
 import { TournamentPageComponent } from './tournament/tournament-page/tournament-page.component';
 import { TournamentCardComponent } from './tournament/components/tournament-card/tournament-card.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { TournamentCardComponent } from './tournament/components/tournament-card
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     SharedModule,
   ],
   providers: [],

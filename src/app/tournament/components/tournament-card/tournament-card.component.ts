@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Tournament } from 'src/app/_models/tournament';
 
 @Component({
   selector: 'app-tournament-card',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./tournament-card.component.scss']
 })
 export class TournamentCardComponent {
+
+  @Input() tournament! : Tournament;
 
 }
