@@ -14,4 +14,9 @@ export class TournamentService {
   getTournaments(): Observable<Tournament[]> {
     return this.http.get<Tournament[]>(this.baseUrl + 'Tournament');
   }
+
+  createTournament(tournamentName: string) {
+    var body =  {Name : tournamentName};
+    return this.http.post<void>(this.baseUrl + 'Tournament',  body );
+  }
 }

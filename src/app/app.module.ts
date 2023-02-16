@@ -10,6 +10,8 @@ import { HomeComponent } from './home/home.component';
 import { TournamentPageComponent } from './tournament/tournament-page/tournament-page.component';
 import { TournamentCardComponent } from './tournament/components/tournament-card/tournament-card.component';
 import { HttpClientModule } from '@angular/common/http';
+import { DialogNewTournamentComponent } from './tournament/components/dialog-new-tournament/dialog-new-tournament.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
     HomeComponent,
     TournamentPageComponent,
     TournamentCardComponent,
+    DialogNewTournamentComponent,
   ],
   imports: [
     BrowserModule,
@@ -25,6 +28,8 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserAnimationsModule,
     HttpClientModule,
     SharedModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

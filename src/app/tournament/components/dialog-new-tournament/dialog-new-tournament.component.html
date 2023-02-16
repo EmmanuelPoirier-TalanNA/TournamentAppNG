@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>Nouveau tournoi</h1>
+<div mat-dialog-content>
+  <p>Donnez un nom à votre tournoi</p>
+  <mat-form-field appearance="fill">
+    <mat-label>Nom du tournoi</mat-label>
+    <input matInput [(ngModel)]="data.tournamentName">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancelClick()">Annuler</button>
+  <button mat-button [mat-dialog-close]="data.tournamentName" cdkFocusInitial>Valider</button>
+</div>
