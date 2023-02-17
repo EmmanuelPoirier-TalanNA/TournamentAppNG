@@ -1,5 +1,7 @@
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 import { map, of, switchMap, tap } from 'rxjs';
@@ -17,10 +19,12 @@ export class TournamentDetailComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['id', 'name', 'score', 'actions'];
   dataSource!: MatTableDataSource<TournamentPlayer>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
     private route: ActivatedRoute,
-    private tournamentService: TournamentService
+    private tournamentService: TournamentService,
+    private _liveAnnouncer: LiveAnnouncer
   ) {}
   ngAfterViewInit(): void {
     let tournamentId = this.route.snapshot.params['tournamentId'];
@@ -44,6 +48,7 @@ export class TournamentDetailComponent implements OnInit, AfterViewInit {
             res.players
           );
           this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
         }
       });
   }
@@ -93,6 +98,19 @@ export class TournamentDetailComponent implements OnInit, AfterViewInit {
       this.tournamentService
         .closeTournament(this.tournament.id, this.tournament.closed)
         .subscribe(() => {});
+    }
+  }
+
+  /** Announce the change in sort state for assistive technology. */
+  announceSortChange(sortState: Sort | any) {
+    // This example uses English messages. If your application supports
+    // multiple language, you would internationalize these strings.
+    // Furthermore, you can customize the message to add additional
+    // details about the values being sorted.
+    if (sortState.direction) {
+      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+    } else {
+      this._liveAnnouncer.announce('Sorting cleared');
     }
   }
 }
