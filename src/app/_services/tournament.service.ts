@@ -38,4 +38,8 @@ export class TournamentService {
       body
     );
   }
+
+  closeTournament(tournamentId: number, close : boolean) {
+    return this.http.put<void>(this.baseUrl + 'Tournament/' + tournamentId + '/Close', {close : close});
+  }
 }

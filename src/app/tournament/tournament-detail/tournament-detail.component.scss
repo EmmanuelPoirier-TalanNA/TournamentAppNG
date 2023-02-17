@@ -6,7 +6,17 @@ form {
   margin: 0;
   margin-bottom: 5px !important;
 }
-.mat-grid-tile  .mat-grid-tile-content {
+.mat-grid-tile .mat-grid-tile-content {
   justify-content: flex-start !important ;
   align-items: flex-start !important;
+}
+.tournament-header {
+  display: flex;
+  justify-content: start;
+
+
+  mat-icon {
+    margin-right: 20px;
+    font-size:x-large;
+  }
 }

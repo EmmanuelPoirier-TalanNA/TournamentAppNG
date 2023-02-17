@@ -1,4 +1,10 @@
-<h1>{{ tournament?.name }}</h1>
+<div class="tournament-header">
+  <mat-icon [inline]="true" [color]="tournament?.closed === true ? 'warn' : 'primary'" aria-hidden="false" aria-label="Example home icon"
+  [fontIcon]="tournament?.closed === true ? 'block' : 'check_circle'"></mat-icon>
+  <h1>{{ tournament?.name }}</h1>
+  <button mat-raised-button color="warn" (click)="closeTournament()">{{tournament?.closed === true ? 'Ouvrir le tournoi' : 'Clore le tournoi'}}</button>
+</div>
+
 
 <mat-grid-list cols="2" rowHeight="2:1">
   <!-- <mat-grid-tile [style.background]="'lightblue'"  > -->

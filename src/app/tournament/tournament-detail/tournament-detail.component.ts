@@ -39,6 +39,7 @@ export class TournamentDetailComponent implements OnInit, AfterViewInit {
       )
       .subscribe((res) => {
         if (res) {
+          this.displayActions(res);
           this.dataSource = new MatTableDataSource<TournamentPlayer>(
             res.players
           );
@@ -48,6 +49,15 @@ export class TournamentDetailComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {}
+
+  displayActions(tournament: Tournament) {
+    this.displayedColumns = this.displayedColumns.filter(
+      (c) => c !== 'actions'
+    );
+    if (tournament.closed === false) {
+      this.displayedColumns.push('actions');
+    }
+  }
 
   getTournament(id: number) {
     return this.tournamentService.getTournament(id).pipe(
@@ -73,6 +83,16 @@ export class TournamentDetailComponent implements OnInit, AfterViewInit {
           })
         )
         .subscribe();
+    }
+  }
+
+  closeTournament() {
+    if (this.tournament) {
+      this.tournament.closed = !this.tournament.closed;
+      this.displayActions(this.tournament);
+      this.tournamentService
+        .closeTournament(this.tournament.id, this.tournament.closed)
+        .subscribe(() => {});
     }
   }
 }
