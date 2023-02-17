@@ -1,3 +1,13 @@
 mat-card {
   margin: 24px 24px;
 }
+.tournament-infos {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  & .tournament-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

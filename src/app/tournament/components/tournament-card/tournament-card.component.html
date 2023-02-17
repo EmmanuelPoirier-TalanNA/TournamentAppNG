@@ -1,9 +1,28 @@
-<mat-card>
+<mat-card [routerLink]="[tournament.id]">
   <mat-card-content>
-    <p>{{ tournament.id + " - " + tournament.name }}</p>
+    <div class="tournament-infos">
+      <p>{{ tournament.id + " - " + tournament.name }}</p>
+      <div class="tournament-status">
+        <mat-icon
+          *ngIf="tournament.closed"
+          color="warn"
+          aria-hidden="false"
+          aria-label="Example home icon"
+          fontIcon="block"
+        ></mat-icon>
+        <span>
+          {{ tournament.closed ? "Tournoi cloturé" : "Tournoi en-cours" }}
+        </span>
+      </div>
+    </div>
+
     <span>{{ tournament.players.length }} joueurs</span>
   </mat-card-content>
   <mat-card-footer>
-    <mat-progress-bar mode="determinate" value="100"></mat-progress-bar>
+    <mat-progress-bar
+      *ngIf="!tournament.closed"
+      mode="determinate"
+      value="100"
+    ></mat-progress-bar>
   </mat-card-footer>
 </mat-card>

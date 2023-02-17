@@ -1,0 +1,75 @@
+<h1>{{ tournament?.name }}</h1>
+
+<mat-grid-list cols="2" rowHeight="2:1">
+  <!-- <mat-grid-tile [style.background]="'lightblue'"  > -->
+  <mat-grid-tile>
+    <mat-card>
+      <mat-card-content>
+        <div class="">
+          <h2>Infos</h2>
+          <p>Description détaillées du tournoi</p>
+        </div>
+        <span>{{ tournament?.players?.length }} joueurs</span>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+  <mat-grid-tile [rowspan]="2"
+    ><mat-card>
+      <mat-card-content>
+        <div class="">
+          <h2>Joueurs</h2>
+          <table
+            mat-table
+            [dataSource]="dataSource"
+            class="mat-elevation-z8"
+          >
+            <!--- Note that these columns can be defined in any order.
+                  The actual rendered columns are set as a property on the row definition" -->
+
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef>Identifiant</th>
+              <td mat-cell *matCellDef="let element">{{ element.playerId }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef>Pseudo</th>
+              <td mat-cell *matCellDef="let element">{{ element.pseudo }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="score">
+              <th mat-header-cell *matHeaderCellDef>Score</th>
+              <td mat-cell *matCellDef="let element">{{ element.score }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef>Ajouter des points</th>
+              <td mat-cell *matCellDef="let element; index">
+                <form class="add-points-form">
+                  <mat-form-field class="points-input" [style.width.px]="80">
+                    <mat-label>points</mat-label>
+                    <input type="number" #input matInput placeholder="..." />
+                  </mat-form-field>
+                  <button
+                    mat-mini-fab
+                    color="warn"
+                    aria-label="add"
+                    (click)="addPoints(element.playerId, input.value)"
+                  >
+                    <mat-icon>add</mat-icon>
+                  </button>
+                </form>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
+          <mat-paginator
+            [pageSizeOptions]="[5, 10, 20]"
+            showFirstLastButtons
+            aria-label="Select page of periodic elements"
+          >
+          </mat-paginator>
+        </div>
+      </mat-card-content> </mat-card
+  ></mat-grid-tile>
+</mat-grid-list>
