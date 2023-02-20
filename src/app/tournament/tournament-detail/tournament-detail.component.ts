@@ -1,3 +1,4 @@
+
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
@@ -16,7 +17,7 @@ import { TournamentService } from 'src/app/_services/tournament.service';
 })
 export class TournamentDetailComponent implements OnInit, AfterViewInit {
   tournament?: Tournament;
-  displayedColumns: string[] = ['id', 'name', 'score', 'actions'];
+  displayedColumns: string[] = ['playerId', 'name', 'score', 'actions'];
   dataSource!: MatTableDataSource<TournamentPlayer>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -101,8 +102,8 @@ export class TournamentDetailComponent implements OnInit, AfterViewInit {
     }
   }
 
-  /** Announce the change in sort state for assistive technology. */
-  announceSortChange(sortState: Sort | any) {
+   /** Announce the change in sort state for assistive technology. */
+   announceSortChange(sortState: Sort) {
     // This example uses English messages. If your application supports
     // multiple language, you would internationalize these strings.
     // Furthermore, you can customize the message to add additional
@@ -113,4 +114,5 @@ export class TournamentDetailComponent implements OnInit, AfterViewInit {
       this._liveAnnouncer.announce('Sorting cleared');
     }
   }
+
 }

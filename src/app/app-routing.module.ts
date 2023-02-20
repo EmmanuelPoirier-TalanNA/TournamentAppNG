@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
+import { SampleComponent } from './sample/sample.component';
 import { TournamentDetailComponent } from './tournament/tournament-detail/tournament-detail.component';
 import { TournamentPageComponent } from './tournament/tournament-page/tournament-page.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
+  {path: 'sample', component: SampleComponent},
   {path: 'tournament',
   children: [
     {path: '',  component: TournamentPageComponent},

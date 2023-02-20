@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { DialogNewTournamentComponent } from './tournament/components/dialog-new-tournament/dialog-new-tournament.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TournamentDetailComponent } from './tournament/tournament-detail/tournament-detail.component';
+import { SampleComponent } from './sample/sample.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { TournamentDetailComponent } from './tournament/tournament-detail/tourna
     TournamentCardComponent,
     DialogNewTournamentComponent,
     TournamentDetailComponent,
+    SampleComponent,
   ],
   imports: [
     BrowserModule,
