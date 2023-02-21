@@ -12,7 +12,7 @@
   </button>
 </div>
 
-<div class="tournament-subscription">
+<div class="tournament-registration">
   <button
     mat-raised-button
     [color]="registeredInTournament ? 'basic' : 'primary'"
@@ -27,9 +27,8 @@
   </button>
 </div>
 
-<mat-grid-list cols="2" rowHeight="2:1">
-  <!-- <mat-grid-tile [style.background]="'lightblue'"  > -->
-  <mat-grid-tile>
+<div class="tournament-container">
+  <div class="tournament-card">
     <mat-card>
       <mat-card-content>
         <div class="">
@@ -39,9 +38,9 @@
         <span>{{ tournament?.players?.length }} joueurs</span>
       </mat-card-content>
     </mat-card>
-  </mat-grid-tile>
-  <mat-grid-tile [rowspan]="2"
-    ><mat-card>
+  </div>
+  <div class="tournament-card">
+    <mat-card>
       <mat-card-content>
         <div class="">
           <h2>Joueurs</h2>
@@ -106,6 +105,7 @@
           >
           </mat-paginator>
         </div>
-      </mat-card-content> </mat-card
-  ></mat-grid-tile>
-</mat-grid-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

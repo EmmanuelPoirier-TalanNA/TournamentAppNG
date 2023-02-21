@@ -7,19 +7,24 @@ form {
   margin-bottom: 5px !important;
 }
 
-.mat-grid-tile .mat-grid-tile-content {
-  justify-content: flex-start !important ;
-  align-items: flex-start !important;
+.tournament-container {
+  margin: 30px;
+  display: flex;
+  justify-content: space-around;
+
+  & .tournament-card {
+    width: 40%;
+  }
 }
 
-.mat-grid-tile .mat-figure {
-  justify-content: flex-start !important ;
-  align-items: flex-start !important;
+.tournament-registration {
+  margin: 30px;
+  display: flex;
 }
 
 .tournament-header {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
 
   mat-icon {
     margin-right: 20px;
