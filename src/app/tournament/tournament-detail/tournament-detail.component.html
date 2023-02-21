@@ -1,10 +1,31 @@
 <div class="tournament-header">
-  <mat-icon [inline]="true" [color]="tournament?.closed === true ? 'warn' : 'primary'" aria-hidden="false" aria-label="Example home icon"
-  [fontIcon]="tournament?.closed === true ? 'block' : 'check_circle'"></mat-icon>
+  <mat-icon
+    [inline]="true"
+    [color]="tournament?.closed === true ? 'warn' : 'primary'"
+    aria-hidden="false"
+    aria-label="Example home icon"
+    [fontIcon]="tournament?.closed === true ? 'block' : 'check_circle'"
+  ></mat-icon>
   <h1>{{ tournament?.name }}</h1>
-  <button mat-raised-button color="warn" (click)="closeTournament()">{{tournament?.closed === true ? 'Ouvrir le tournoi' : 'Clore le tournoi'}}</button>
+  <button mat-raised-button color="warn" (click)="closeTournament()">
+    {{ tournament?.closed === true ? "Ouvrir le tournoi" : "Clore le tournoi" }}
+  </button>
 </div>
 
+<div class="tournament-subscription">
+  <button
+    mat-raised-button
+    [color]="registeredInTournament ? 'basic' : 'primary'"
+    [disabled]="registeredInTournament"
+    (click)="registerInTournament()"
+  >
+    {{
+      registeredInTournament === true
+        ? "Déjà inscrit dans le tournoi"
+        : "M'inscrire"
+    }}
+  </button>
+</div>
 
 <mat-grid-list cols="2" rowHeight="2:1">
   <!-- <mat-grid-tile [style.background]="'lightblue'"  > -->
@@ -35,7 +56,14 @@
                   The actual rendered columns are set as a property on the row definition" -->
 
             <ng-container matColumnDef="playerId">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">Identifiant</th>
+              <th
+                mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header
+                sortActionDescription="Sort by number"
+              >
+                Identifiant
+              </th>
               <td mat-cell *matCellDef="let element">{{ element.playerId }}</td>
             </ng-container>
 
@@ -44,7 +72,7 @@
               <td mat-cell *matCellDef="let element">{{ element.pseudo }}</td>
             </ng-container>
 
-            <ng-container matColumnDef="score" >
+            <ng-container matColumnDef="score">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>Score</th>
               <td mat-cell *matCellDef="let element">{{ element.score }}</td>
             </ng-container>

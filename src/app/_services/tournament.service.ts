@@ -31,6 +31,13 @@ export class TournamentService {
     );
   }
 
+  addPlayers(tournamentId: number, playerIds: number[]) {
+    return this.http.put<void>(
+      this.baseUrl + 'Tournament/' + tournamentId + '/AddPlayers',
+      playerIds
+    );
+  }
+
   addPointsToPlayer(tournamentId: number, playerId: number, points: number) {
     var body = { PlayerId: playerId, PointsAdded: points };
     return this.http.put<void>(
@@ -39,7 +46,10 @@ export class TournamentService {
     );
   }
 
-  closeTournament(tournamentId: number, close : boolean) {
-    return this.http.put<void>(this.baseUrl + 'Tournament/' + tournamentId + '/Close', {close : close});
+  closeTournament(tournamentId: number, close: boolean) {
+    return this.http.put<void>(
+      this.baseUrl + 'Tournament/' + tournamentId + '/Close',
+      { close: close }
+    );
   }
 }

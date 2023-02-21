@@ -1,13 +1,14 @@
-
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
-import { map, of, switchMap, tap } from 'rxjs';
+import { catchError, map, of, switchMap, take, tap } from 'rxjs';
+import { Player } from 'src/app/_models/player.model';
 import { Tournament } from 'src/app/_models/tournament';
 import { TournamentPlayer } from 'src/app/_models/tournament-player';
+import { AccountService } from 'src/app/_services/account.service';
 import { TournamentService } from 'src/app/_services/tournament.service';
 
 @Component({
@@ -19,42 +20,74 @@ export class TournamentDetailComponent implements OnInit, AfterViewInit {
   tournament?: Tournament;
   displayedColumns: string[] = ['playerId', 'name', 'score', 'actions'];
   dataSource!: MatTableDataSource<TournamentPlayer>;
+  currentPlayer!: Player | null;
+  registeredInTournament: boolean = false;
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
     private route: ActivatedRoute,
     private tournamentService: TournamentService,
+    private accountService: AccountService,
     private _liveAnnouncer: LiveAnnouncer
   ) {}
   ngAfterViewInit(): void {
-    let tournamentId = this.route.snapshot.params['tournamentId'];
+    let tournamentId = parseInt(this.route.snapshot.params['tournamentId']);
+    this.getTournament(tournamentId);
+  }
+
+  getTournament(tournamentId: number) {
     this.tournamentService.currentTournaments$
       .pipe(
         switchMap((tournaments) => {
           if (tournaments?.length) {
-            this.tournament = tournaments?.find(
-              (t) => t.id === parseInt(tournamentId)
-            );
-            return of(this.tournament);
+            let tournament = tournaments?.find((t) => t.id === tournamentId);
+            return of(tournament);
           } else {
-            return this.getTournament(tournamentId);
+            return this.tournamentService.getTournament(tournamentId);
           }
+        }),
+        switchMap((tournament) => {
+          if (tournament) {
+            this.tournament = tournament;
+            this.displayActions(tournament);
+            this.dataSource = new MatTableDataSource<TournamentPlayer>(
+              tournament.players
+            );
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
+            return this.getPlayer();
+          }
+          return of(null);
         })
       )
-      .subscribe((res) => {
-        if (res) {
-          this.displayActions(res);
-          this.dataSource = new MatTableDataSource<TournamentPlayer>(
-            res.players
-          );
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
-        }
-      });
+      .subscribe();
   }
 
   ngOnInit(): void {}
+
+  getPlayer() {
+    return this.accountService.currentPlayer$.pipe(
+      take(1),
+      tap((player) => {
+        this.currentPlayer = player;
+        this.checkPlayerInTournament();
+      })
+    );
+  }
+
+  private checkPlayerInTournament() {
+    this.registeredInTournament = false;
+    if (this.tournament?.players.length) {
+      let registered = this.tournament.players.find(
+        (p) => p.playerId === this.currentPlayer?.playerId
+      );
+      if (registered) {
+        this.registeredInTournament = true;
+      }
+    }
+  }
 
   displayActions(tournament: Tournament) {
     this.displayedColumns = this.displayedColumns.filter(
@@ -65,13 +98,13 @@ export class TournamentDetailComponent implements OnInit, AfterViewInit {
     }
   }
 
-  getTournament(id: number) {
-    return this.tournamentService.getTournament(id).pipe(
-      tap((t) => {
-        this.tournament = t;
-      })
-    );
-  }
+  // getTournament(id: number) {
+  //   return this.tournamentService.getTournament(id).pipe(
+  //     tap((t) => {
+  //       this.tournament = t;
+  //     })
+  //   );
+  // }
 
   addPoints(playerId: number, points: string) {
     let nbPoints = parseInt(points);
@@ -102,8 +135,8 @@ export class TournamentDetailComponent implements OnInit, AfterViewInit {
     }
   }
 
-   /** Announce the change in sort state for assistive technology. */
-   announceSortChange(sortState: Sort) {
+  /** Announce the change in sort state for assistive technology. */
+  announceSortChange(sortState: Sort) {
     // This example uses English messages. If your application supports
     // multiple language, you would internationalize these strings.
     // Furthermore, you can customize the message to add additional
@@ -115,4 +148,24 @@ export class TournamentDetailComponent implements OnInit, AfterViewInit {
     }
   }
 
+  registerInTournament() {
+    if (this.tournament && this.currentPlayer) {
+      this.tournamentService
+        .addPlayers(this.tournament.id, [this.currentPlayer.playerId])
+        .pipe(
+          switchMap(() => {
+            return this.tournamentService.getTournaments().pipe(
+              tap((tournaments) => {
+                this.checkPlayerInTournament();
+              })
+            );
+          }),
+          catchError((err: any) => {
+            console.log(err);
+            return of(null);
+          })
+        )
+        .subscribe();
+    }
+  }
 }
