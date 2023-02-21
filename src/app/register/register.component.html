@@ -1,0 +1,95 @@
+<form
+  class="register-form"
+  [formGroup]="registerForm"
+  (ngSubmit)="registerForm.valid && register()"
+  autocomplete="off"
+>
+  <h2 class="">Formulaire d'enregistrement</h2>
+  <hr />
+  <div class="register-form-field">
+    <mat-form-field appearance="fill">
+      <mat-label>Enter your email</mat-label>
+      <input
+        matInput
+        placeholder="pat@example.com"
+        [formControl]="$any(registerForm.controls['email'])"
+        required
+      />
+      <mat-error *ngIf="registerForm.controls['email'].invalid"
+        >Erreur</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Pseudo</mat-label>
+      <input
+        matInput
+        placeholder="Votre pseudo"
+        [formControl]="$any(registerForm.controls['pseudo'])"
+        required
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Entrez votre mot de passe</mat-label>
+      <input
+        matInput
+        [type]="hidePassword ? 'password' : 'text'"
+        [formControl]="$any(registerForm.controls['password'])"
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="hidePassword = !hidePassword"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hidePassword"
+      >
+        <mat-icon>{{
+          hidePassword ? "visibility_off" : "visibility"
+        }}</mat-icon>
+      </button>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Confirmez votre mot de passe</mat-label>
+      <input
+        matInput
+        [type]="hideConfirmPassword ? 'password' : 'text'"
+        [formControl]="$any(registerForm.controls['confirmPassword'])"
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="hideConfirmPassword = !hideConfirmPassword"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hideConfirmPassword"
+      >
+        <mat-icon>{{
+          hideConfirmPassword ? "visibility_off" : "visibility"
+        }}</mat-icon>
+      </button>
+      <mat-error
+        *ngIf="registerForm.controls['confirmPassword'].hasError('notMatching')"
+      >
+        Mot de passe différent
+      </mat-error>
+    </mat-form-field>
+
+    <div *ngIf="validationErrors">
+      <mat-error >{{ validationErrors }}
+
+      </mat-error>
+    </div>
+  </div>
+  <div class="register-form-buttons">
+    <button
+      [disabled]="!registerForm.valid"
+      mat-raised-button
+      color="primary"
+      type="submit"
+    >
+      S'enregistrer
+    </button>
+    <button mat-raised-button color="warn" type="button" (click)="cancel()">
+      Annuler
+    </button>
+  </div>
+</form>

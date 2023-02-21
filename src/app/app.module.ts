@@ -14,6 +14,8 @@ import { DialogNewTournamentComponent } from './tournament/components/dialog-new
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TournamentDetailComponent } from './tournament/tournament-detail/tournament-detail.component';
 import { SampleComponent } from './sample/sample.component';
+import { RegisterComponent } from './register/register.component';
+import { DialogLoginComponent } from './header/components/dialog-login/dialog-login.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { SampleComponent } from './sample/sample.component';
     DialogNewTournamentComponent,
     TournamentDetailComponent,
     SampleComponent,
+    RegisterComponent,
+    DialogLoginComponent,
   ],
   imports: [
     BrowserModule,

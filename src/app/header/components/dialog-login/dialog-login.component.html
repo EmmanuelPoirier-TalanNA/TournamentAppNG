@@ -1,0 +1,55 @@
+<h1 mat-dialog-title>Connexion</h1>
+<div mat-dialog-content>
+  <p>Entrez vos identifiants</p>
+  <form class="login-form" [formGroup]="loginForm">
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <!-- <input matInput [(ngModel)]="loginData.email" /> -->
+      <input
+        type="email"
+        matInput
+        [formControl]="emailFormControl"
+        [errorStateMatcher]="matcher"
+      />
+      <mat-error
+        *ngIf="
+          emailFormControl.hasError('email') &&
+          !emailFormControl.hasError('required')
+        "
+      >
+        Merci d'entrer une adresse email valide
+      </mat-error>
+      <mat-error *ngIf="emailFormControl.hasError('required')">
+        L'Email est <strong>requis</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Password</mat-label>
+      <input matInput  [type]="hidePassword ? 'password' : 'text'" [formControl]="passwordFormControl" />
+      <button
+      mat-icon-button
+      matSuffix
+      (click)="hidePassword = !hidePassword"
+      [attr.aria-label]="'Hide password'"
+      [attr.aria-pressed]="hidePassword"
+    >
+      <mat-icon>{{
+        hidePassword ? "visibility_off" : "visibility"
+      }}</mat-icon>
+    </button>
+    </mat-form-field>
+  </form>
+  <mat-error *ngIf="errorMessage !== ''"> {{ errorMessage }} </mat-error>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancelClick()">Annuler</button>
+  <button
+    mat-raised-button
+    color="primary"
+    [disabled]="emailFormControl.errors || passwordFormControl.errors"
+    (click)="onValidClick()"
+  >
+    Valider
+  </button>
+</div>
+
