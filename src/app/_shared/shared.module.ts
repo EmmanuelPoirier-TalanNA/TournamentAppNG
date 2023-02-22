@@ -16,6 +16,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { CdkTableModule } from '@angular/cdk/table';
 import { MatSortModule } from '@angular/material/sort';
 import { HasRoleDirective } from '../_directives/has-role.directive';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [HasRoleDirective],
@@ -37,6 +38,7 @@ import { HasRoleDirective } from '../_directives/has-role.directive';
     A11yModule,
     MatSortModule,
     HasRoleDirective,
+    MatDividerModule,
   ],
 })
 export class SharedModule {}

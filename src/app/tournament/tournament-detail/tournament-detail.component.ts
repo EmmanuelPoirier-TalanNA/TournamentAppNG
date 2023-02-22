@@ -3,8 +3,8 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
-import { catchError, map, of, switchMap, take, tap } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { catchError, of, switchMap, take, tap } from 'rxjs';
 import { Player } from 'src/app/_models/player.model';
 import { Tournament } from 'src/app/_models/tournament';
 import { TournamentPlayer } from 'src/app/_models/tournament-player';
@@ -73,7 +73,7 @@ export class TournamentDetailComponent implements OnInit, AfterViewInit {
       tap((player) => {
         this.currentPlayer = player;
         this.checkPlayerInTournament();
-        if(this.tournament){
+        if (this.tournament) {
           this.displayActions(this.tournament);
         }
       })

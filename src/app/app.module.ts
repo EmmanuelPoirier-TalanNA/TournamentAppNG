@@ -42,7 +42,9 @@ import { PlayerPageComponent } from './player/player-page/player-page.component'
     FormsModule,
     ReactiveFormsModule,
   ],
-  providers: [  { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },],
-  bootstrap: [AppComponent]
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

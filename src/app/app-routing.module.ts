@@ -11,9 +11,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   {
     path: 'player',
-    children: [
-      { path: '', component: PlayerPageComponent },
-    ],
+    children: [{ path: '', component: PlayerPageComponent }],
   },
   { path: 'register', component: RegisterComponent },
   { path: 'sample', component: SampleComponent },
