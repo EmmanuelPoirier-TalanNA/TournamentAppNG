@@ -17,6 +17,7 @@ import { SampleComponent } from './sample/sample.component';
 import { RegisterComponent } from './register/register.component';
 import { DialogLoginComponent } from './header/components/dialog-login/dialog-login.component';
 import { JwtInterceptor } from './_interceptors/jwt.interceptor';
+import { PlayerPageComponent } from './player/player-page/player-page.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { JwtInterceptor } from './_interceptors/jwt.interceptor';
     SampleComponent,
     RegisterComponent,
     DialogLoginComponent,
+    PlayerPageComponent,
   ],
   imports: [
     BrowserModule,

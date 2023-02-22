@@ -1,36 +1,61 @@
+<mat-toolbar color="primary">
+  <div class="header-main-menu">
+    <button
+      mat-icon-button
+      class="example-icon"
+      aria-label="Example icon-button with menu icon"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>Tournament App</span>
+  </div>
+  <div class="header-nav-bar">
+    <a mat-raised-button routerLink="/">Home</a>
+    <a
+      [disabled]="!(currentPlayer$ | async)"
+      mat-raised-button
+      routerLink="tournament"
+      >Les tournois</a
+    >
+    <a
+      [disabled]="!(currentPlayer$ | async)"
+      mat-raised-button
+      routerLink="player"
+      >Les joueurs</a
+    >
+  </div>
 
-  <mat-toolbar color="primary">
-    <div class="header-main-menu">
-      <button
-        mat-icon-button
-        class="example-icon"
-        aria-label="Example icon-button with menu icon"
-      >
-        <mat-icon>menu</mat-icon>
-      </button>
-      <span>Tournament App</span>
-    </div>
-    <div class="header-nav-bar">
-      <a mat-raised-button routerLink="/">Home</a>
-      <a [disabled]="!(currentPlayer$  | async)" mat-raised-button routerLink="tournament">Les tournois</a>
-    </div>
-
-    <div class="header-connexion" *ngIf="!(currentPlayer$  | async)">
-      <button class="btn" mat-icon-button aria-label="Connexion utilisateur" (click)="openDialogLogin()">
-        <mat-icon>login</mat-icon>
-      </button>
-      <span class="btn-label btn-label--small">&nbsp;Connexion</span>
-      <button mat-icon-button routerLink="register" aria-label="Enregistrement utilisateur" >
-        <mat-icon>person</mat-icon>
-      </button>
-      <span class="btn-label btn-label--small">&nbsp;S'enregistrer</span>
-    </div>
-    <div class="header-connexion" *ngIf="currentPlayer$  | async">
-      <span class="welcome-text">Bonjour {{(currentPlayer$  | async)?.pseudo}}</span>
-      <button class="btn" mat-icon-button aria-label="Déconnexion utilisateur" (click)="logout()">
-        <mat-icon>logout</mat-icon>
-      </button>
-      <span class="btn-label btn-label--small">&nbsp;Déconnexion</span>
-    </div>
-  </mat-toolbar>
-
+  <div class="header-connexion" *ngIf="!(currentPlayer$ | async)">
+    <button
+      class="btn"
+      mat-icon-button
+      aria-label="Connexion utilisateur"
+      (click)="openDialogLogin()"
+    >
+      <mat-icon>login</mat-icon>
+    </button>
+    <span class="btn-label btn-label--small">&nbsp;Connexion</span>
+    <button
+      mat-icon-button
+      routerLink="register"
+      aria-label="Enregistrement utilisateur"
+    >
+      <mat-icon>person</mat-icon>
+    </button>
+    <span class="btn-label btn-label--small">&nbsp;S'enregistrer</span>
+  </div>
+  <div class="header-connexion" *ngIf="currentPlayer$ | async">
+    <span class="welcome-text"
+      >Bonjour {{ (currentPlayer$ | async)?.pseudo }}</span
+    >
+    <button
+      class="btn"
+      mat-icon-button
+      aria-label="Déconnexion utilisateur"
+      (click)="logout()"
+    >
+      <mat-icon>logout</mat-icon>
+    </button>
+    <span class="btn-label btn-label--small">&nbsp;Déconnexion</span>
+  </div>
+</mat-toolbar>
