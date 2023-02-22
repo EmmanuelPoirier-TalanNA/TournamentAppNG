@@ -1,6 +1,6 @@
 <div class="title">
   <h1>Les tournois</h1>
 </div>
-<button mat-raised-button color="warn" (click)="openDialogNewTournament()">Créer un nouveau tournoi</button>
+<button *appHasRole="['Admin']" mat-raised-button color="warn" (click)="openDialogNewTournament()">Créer un nouveau tournoi</button>
 <app-tournament-card *ngFor="let tournament of tournaments" [tournament]="tournament"></app-tournament-card>
 

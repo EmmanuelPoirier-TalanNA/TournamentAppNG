@@ -12,7 +12,7 @@
     </div>
     <div class="header-nav-bar">
       <a mat-raised-button routerLink="/">Home</a>
-      <a mat-raised-button routerLink="tournament">Les tournois</a>
+      <a [disabled]="!(currentPlayer$  | async)" mat-raised-button routerLink="tournament">Les tournois</a>
     </div>
 
     <div class="header-connexion" *ngIf="!(currentPlayer$  | async)">

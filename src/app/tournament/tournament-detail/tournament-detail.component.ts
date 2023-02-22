@@ -73,6 +73,9 @@ export class TournamentDetailComponent implements OnInit, AfterViewInit {
       tap((player) => {
         this.currentPlayer = player;
         this.checkPlayerInTournament();
+        if(this.tournament){
+          this.displayActions(this.tournament);
+        }
       })
     );
   }
@@ -93,18 +96,10 @@ export class TournamentDetailComponent implements OnInit, AfterViewInit {
     this.displayedColumns = this.displayedColumns.filter(
       (c) => c !== 'actions'
     );
-    if (tournament.closed === false) {
+    if (tournament.closed === false && this.currentPlayer?.role === 'Admin') {
       this.displayedColumns.push('actions');
     }
   }
-
-  // getTournament(id: number) {
-  //   return this.tournamentService.getTournament(id).pipe(
-  //     tap((t) => {
-  //       this.tournament = t;
-  //     })
-  //   );
-  // }
 
   addPoints(playerId: number, points: string) {
     let nbPoints = parseInt(points);

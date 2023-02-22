@@ -15,6 +15,10 @@ export class AccountService {
 
   constructor(private http: HttpClient) {}
 
+  public get playerValue(): Player | null{
+    return this.currentPlayerSource?.value;
+}
+
   register(model: any) {
     return this.http
       .post<Player>(this.baseUrl + 'Account/Register', model)
