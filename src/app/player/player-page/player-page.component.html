@@ -27,7 +27,7 @@
       <tr
         mat-row
         (click)="clickedRows(row)"
-        [ngClass]="{'highlight': selectedPlayer?.playerId == row.playerId}"
+        [ngClass]="{ highlight: selectedPlayer?.playerId == row.playerId }"
         *matRowDef="let row; columns: displayedColumns"
       ></tr>
     </table>
@@ -37,7 +37,34 @@
     <h1>Détail du joueur</h1>
     <ng-container *ngIf="selectedPlayer">
       <h2>{{ selectedPlayer.pseudo }}</h2>
-      <h3>Role : {{ selectedPlayer.role }}</h3>
+      <div class="player-role">
+        <mat-form-field appearance="fill">
+          <mat-label>Role</mat-label>
+          <mat-select
+            [(ngModel)]="selectedPlayerRoleId"
+            [disabled]="
+              (currentPlayer$ | async)?.role !== 'Admin' ||
+              (currentPlayer$ | async)?.playerId === selectedPlayer.playerId
+            "
+          >
+            <mat-option *ngFor="let role of roles" [value]="role.RoleId">
+              {{ role.RoleName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button
+          *appHasRole="['Admin']"
+          [disabled]="
+            (currentPlayer$ | async)?.playerId === selectedPlayer.playerId
+          "
+          mat-raised-button
+          color="warn"
+          (click)="updateRole()"
+        >
+          Mettre à jour
+        </button>
+      </div>
+
       <mat-divider></mat-divider>
       <h2>Liste des tournois</h2>
       <table

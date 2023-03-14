@@ -17,6 +17,7 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { MatSortModule } from '@angular/material/sort';
 import { HasRoleDirective } from '../_directives/has-role.directive';
 import { MatDividerModule } from '@angular/material/divider';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [HasRoleDirective],
@@ -39,6 +40,7 @@ import { MatDividerModule } from '@angular/material/divider';
     MatSortModule,
     HasRoleDirective,
     MatDividerModule,
+    MatSelectModule
   ],
 })
 export class SharedModule {}

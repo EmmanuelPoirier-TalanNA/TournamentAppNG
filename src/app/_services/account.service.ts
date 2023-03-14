@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Player } from '../_models/player.model';
+import { UpdateRole } from '../_models/update-role.model';
 
 @Injectable({
   providedIn: 'root',
@@ -15,9 +16,9 @@ export class AccountService {
 
   constructor(private http: HttpClient) {}
 
-  public get playerValue(): Player | null{
+  public get playerValue(): Player | null {
     return this.currentPlayerSource?.value;
-}
+  }
 
   register(model: any) {
     return this.http
@@ -42,15 +43,16 @@ export class AccountService {
   }
 
   login(loginDto: any) {
-    return this.http.post<Player>(this.baseUrl + 'account/login', loginDto)
-    .pipe(
-      map((response: Player) => {
-        const player = response;
-        if (player) {
-          this.setCurrentPlayer(player);
-        }
-        return player;
-      })
-    );
+    return this.http
+      .post<Player>(this.baseUrl + 'account/login', loginDto)
+      .pipe(
+        map((response: Player) => {
+          const player = response;
+          if (player) {
+            this.setCurrentPlayer(player);
+          }
+          return player;
+        })
+      );
   }
 }
