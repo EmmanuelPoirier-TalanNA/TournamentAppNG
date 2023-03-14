@@ -17,6 +17,7 @@ export class PlayerPageComponent implements OnInit {
   displayedColumns: string[] = ['playerId', 'name'];
   tournamentsOfPlayerDisplayedColumns: string[] = ['tournamentId', 'name', 'closed', 'score', 'classement'];
   selectedPlayer?: PlayerFull | null = null;
+  selectedPlayerRowIndex? : number;
 
   constructor(private playerService: PlayerService) {}
 
@@ -34,7 +35,8 @@ export class PlayerPageComponent implements OnInit {
   }
 
   clickedRows(row: Player) {
-    console.log(row);
+
+    this.selectedPlayerRowIndex = row.playerId;
     this.playerService.getPlayerById(row.playerId).subscribe((res) => {
       console.log(res);
       this.selectedPlayer = res;

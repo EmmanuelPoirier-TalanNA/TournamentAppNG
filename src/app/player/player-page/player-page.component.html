@@ -27,6 +27,7 @@
       <tr
         mat-row
         (click)="clickedRows(row)"
+        [ngClass]="{'highlight': selectedPlayer?.playerId == row.playerId}"
         *matRowDef="let row; columns: displayedColumns"
       ></tr>
     </table>
